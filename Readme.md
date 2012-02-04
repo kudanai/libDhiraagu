@@ -1,4 +1,4 @@
-**libDhiraagu ** is a collection of python libraries to interact with various web services provided by Dhiraagu (http://www.dhiraagu.com) - a local telco in Maldives.
+**libDhiraagu** is a collection of python libraries to interact with various web services provided by Dhiraagu (http://www.dhiraagu.com) - a local telco in Maldives.
 
 ## SMS
 
