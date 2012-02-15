@@ -9,4 +9,4 @@ the sms.py library file has a cli interface and can be used directly from the co
 
 trayApp.py is a simple pySide/qt4 application that will sit on the systemTray. click the icon to display a nice drop-down widget. (expect some problems with this behavior on windows). You will need to have Qt4 and pySide installed.(pyqt4 should work too - change `from pySide import…` to `from PyQt4 import…`)
 
-![image](screenshots/trayApp.jpg)
+![image](https://github.com/kudanai/libDhiraagu/raw/master/screenshots/trayApp.jpg)
