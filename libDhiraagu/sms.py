@@ -1,4 +1,32 @@
 #!/usr/bin/env python
+# -*- coding: utf-8 -*-
+#
+# python library/script to interact with websms service
+# on www.dhiraagu.com. part of the libDhiraagu (scoff!)
+# project
+#
+# Copyright (C) 
+#	2012 Naail Abdul Rahman (KudaNai)
+#
+# This is free software: you can redistribute it and/or modify 
+# it under the terms of the GNU General Public License as published 
+# by the Free Software Foundation, either version 3 of the License, 
+# or (at your option) any later version.
+#
+# a copy of the license can be viewed at:
+#      http://www.gnu.org/licenses/gpl.html
+#
+# This software is distributed in the hope that it will be useful, 
+# but WITHOUT ANY WARRANTY; without even the implied warranty of 
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the 
+# GNU General Public License for more details.
+#
+
+
+__author__  = "Naail Abdul Rahman"
+__credits__ = ['you','me','all of the people','with nothing to do']
+__version__ = "0.1"
+
 
 import urllib
 import urllib2
@@ -25,9 +53,6 @@ class WebSMS():
 	"""
 	WebSMS class to send SMS's through Dhiraagu's webSMS portal
 	on http://www.dhiraagu.com
-	
-	@param username the username for the instance (string)
-	@param password the password for the instance (string)
 	"""
 	def __init__(self, username=None,password=None):
 		self.username     = username
@@ -35,14 +60,14 @@ class WebSMS():
 		self.sessionKey   = None
 		self.messageCount = None
 
+	
+	def __str__(self):
+		return "user: %s, session: %s, left:%s" % (self.username,self.sessionKey,self.messageCount)
 
 
 	def set_user(self,username,password):
 		"""
-			set the username & password for the session user
-
-			@param username the username for the instance (string)
-			@param password the password for the instance (string)
+		set the username & password for the session user
 		"""
 
 		self.username   = username
@@ -50,14 +75,9 @@ class WebSMS():
 		self.sessionKey = None
 	
 
-
 	def _OpenUrl(self,url,postdata=None,headers={}):
 		"""
-			helper method to open a url
-
-			@param url the url to post to (string)
-			@param postdata the post data (dictionary)
-			@param headers url-headers (dictionary)
+		helper method to open a url
 		"""
 
 		value   = urllib.urlencode(postdata)
@@ -75,10 +95,7 @@ class WebSMS():
 
 	def _validateNumber(self,number):
 		"""
-			helper method to validate cell number 
-
-			@param number the number to validate (string)
-			@returns (boolean)
+		helper method to validate cell number 
 		"""
 		try:
 			match = re.match(r"^7[6-9][0-9]{5}$",number)
@@ -94,13 +111,11 @@ class WebSMS():
 
 	def _parseMessageCount(self,response):
 		"""
-			accepts a responseObject. Looks for the remaining
-			number of messages a user is allowed to send. If this
-			is absent, the session probably expired
+		accepts a responseObject. Looks for the remaining
+		number of messages a user is allowed to send. If this
+		is absent, the session probably expired
 
-			sets instance variable
-
-			@param response HTTPResonseObject
+		sets instance variable
 		"""
 		try:
 			self.messageCount = int(re.search(r"send (\d+) more",response.read()).group(1))
@@ -111,8 +126,7 @@ class WebSMS():
 
 	def authenticate(self):
 		"""
-			login to the server and get a sessionKey. 
-			@returns (boolean)
+		login to the server and get a sessionKey. 
 		"""
 
 		if not self.username or not self.password: return False
@@ -140,14 +154,10 @@ class WebSMS():
 
 	def send_sms(self,number,message):
 		"""
-			send the message to specified number.
-			message will be truncated at 140 chars.
-			TODO: raise an exception if that happens
-
-			@param number the number to send message to (string) !important
-			@message the message to send (string)
-			@return boolean
+		send the message to specified number.
+		message will be truncated at 140 chars.
 		"""
+
  		if not self.sessionKey: 
 	 		raise NotAuthenticated,"must be authenticated first"
 
