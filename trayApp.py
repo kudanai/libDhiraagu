@@ -119,7 +119,6 @@ class Window(QtGui.QDialog):
 
             else:
                 self.trayIcon.showMessage("Success","you can send %s more messages" % self.smsLib.messageCount)
-                print self.smsLib
                 self.clearMessage()
 
 
@@ -240,8 +239,9 @@ class Window(QtGui.QDialog):
 
 
         def createIcon(self):
+            import os
 
-            icon = QtGui.QIcon("res/icon.png")
+            icon = QtGui.QIcon(os.path.join(os.path.dirname(os.path.realpath(__file__)),'icon.png'))
 
             self.trayIcon = QtGui.QSystemTrayIcon(self)
 
@@ -256,11 +256,11 @@ class Window(QtGui.QDialog):
 
 if __name__ == '__main__':
 
-    import sys
+    import sys, os
 
     app = QtGui.QApplication(sys.argv)
 
-    icon = QtGui.QIcon("res/icon.png")
+    icon = QtGui.QIcon(os.path.join(os.path.dirname(os.path.realpath(__file__)),'icon.png'))
     app.setWindowIcon(icon)
 
 
